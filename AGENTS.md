@@ -23,6 +23,8 @@ For artifact workflows, agents must be able to:
 3. Export/read existing artifacts with `emasser get artifacts export`.
 4. Verify uploads by querying `emasser get artifacts forSystem`.
 
+Use the official MITRE Swagger UI renderer to validate endpoint behavior when command details are uncertain: https://mitre.github.io/emass_client/docs/renderer/. The renderer is documentation/OpenAPI validation, not a substitute for testing against an authorized eMASS environment.
+
 ## Quick Setup
 
 1. **Install:** `gem install emasser`

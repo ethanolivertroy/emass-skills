@@ -127,27 +127,27 @@ emasser put milestones update \
 ---
 
 ## Artifacts
-Update (replace) an existing artifact.
+Update artifact metadata for an existing artifact. In eMASSer PUT, `-f/--filename` is the exact artifact filename already in eMASS, not a local file path. Use `post artifacts upload` to upload a new binary file, then use PUT when you need to adjust metadata such as type/category/name/control mappings.
 
 ```bash
 emasser put artifacts update \
   -s <systemId> \
+  -f <filename-in-eMASS> \
   --isTemplate or --no-isTemplate \
   -t <type> \
-  -c <category> \
-  -f <file>
+  -c <category>
 ```
 
 **Type values:** `Procedure`, `Diagram`, `Policy`, `Labor`, `Document`, `Image`, `Other`, `Scan Result`, `Auditor Report`  
 **Category values:** `Implementation Guidance`, `Evidence`
 
 ```bash
-# Example: Replace an existing policy document
+# Example: Update metadata for an existing policy artifact
 emasser put artifacts update -s 100 \
+  -f "access-control-policy.pdf" \
   --no-isTemplate \
   -t Policy \
-  -c "Implementation Guidance" \
-  -f /path/to/updated-access-control-policy.pdf
+  -c "Implementation Guidance"
 ```
 
 ---

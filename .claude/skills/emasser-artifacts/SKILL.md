@@ -208,17 +208,17 @@ Verify:
 - The artifact type/category match the intended use.
 - Control acronyms or assessment procedures are associated when the workflow requires them.
 
-## Replace or Delete Artifacts
+## Update Metadata or Delete Artifacts
 
-Replace/update an existing artifact:
+Update metadata for an existing artifact. In eMASSer PUT, `-f/--filename` is the exact filename already in eMASS, not a replacement file path. To upload a new file, use `post artifacts upload`.
 
 ```bash
 emasser put artifacts update \
   -s <systemId> \
+  -f "existing-filename.pdf" \
   --no-isTemplate \
   -t Document \
-  -c Evidence \
-  -f /path/to/replacement.pdf
+  -c Evidence
 ```
 
 Delete only with explicit user approval and exact filename:
@@ -235,6 +235,33 @@ emasser delete artifacts remove -s <systemId> -f "filename.pdf"
 - Always inspect file size before upload; split or compress large evidence sets.
 - Always verify after upload with `emasser get artifacts forSystem`.
 - For destructive actions, confirm the exact system ID and filename first.
+
+## Validate Against Official eMASS OpenAPI Docs
+
+Use the MITRE Swagger UI renderer as the reference for endpoint semantics when checking a command or writing a test plan:
+
+- Swagger UI: https://mitre.github.io/emass_client/docs/renderer/
+- OpenAPI YAML: https://raw.githubusercontent.com/mitre/emass_client/main/docs/eMASSRestOpenApi.yaml
+
+Artifact endpoint mapping:
+
+| eMASSer CLI | OpenAPI endpoint |
+|---|---|
+| `emasser get artifacts forSystem` | `GET /api/systems/{systemId}/artifacts` |
+| `emasser get artifacts export` | `GET /api/systems/{systemId}/artifacts-export` |
+| `emasser post artifacts upload` | `POST /api/systems/{systemId}/artifacts` |
+| `emasser put artifacts update` | `PUT /api/systems/{systemId}/artifacts` |
+| `emasser delete artifacts remove` | `DELETE /api/systems/{systemId}/artifacts` |
+| `emasser post device_scans add` | `POST /api/systems/{systemId}/device-scan-results` |
+
+Renderer-based validation checks:
+
+1. Confirm `systemId` is the path parameter.
+2. Confirm artifact export requires `filename` as a query parameter.
+3. Confirm artifact upload is `multipart/form-data` and uses the binary `filename` field.
+4. Confirm artifact upload supports the `isBulk` query parameter for zip uploads.
+5. Confirm device scan upload uses `scanType` and binary `filename`.
+6. Confirm PUT updates artifact metadata by filename; it does not upload a replacement binary file.
 
 ## Troubleshooting
 

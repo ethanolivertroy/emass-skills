@@ -19,6 +19,8 @@ Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compati
 
 Agents should use the eMASSer CLI for eMASS work. The skills teach agents how to install/configure `emasser`, read/query eMASS data, inspect local files, upload artifacts and scan results, export existing artifacts, and verify changes with follow-up GET commands. Raw API calls are a fallback only when the CLI cannot do the task.
 
+Use the official MITRE Swagger UI renderer to validate endpoint behavior and command mappings: https://mitre.github.io/emass_client/docs/renderer/. The renderer proves the OpenAPI shape; a real upload still requires authorized eMASS credentials and a target system.
+
 ## Available Skills
 
 | Skill | Location | Description |
