@@ -173,6 +173,7 @@ emasser get pac package -s 100
 ```bash
 emasser get hardware assets -s <systemId>
 # Optional: -i, --pageIndex <index>  |  --pageSize <size>
+# Prefer long --pageSize because -s is also used for --systemId in help output.
 emasser get hardware assets -s 100 --pageSize 100
 ```
 
@@ -182,6 +183,7 @@ emasser get hardware assets -s 100 --pageSize 100
 ```bash
 emasser get software assets -s <systemId>
 # Optional: -i, --pageIndex <index>  |  --pageSize <size>
+# Prefer long --pageSize because -s is also used for --systemId in help output.
 emasser get software assets -s 100 --pageSize 100
 ```
 
@@ -229,5 +231,15 @@ emasser get workflow_instances byInstanceId --workflowInstanceId 99
 ## Dashboards
 ```bash
 emasser get dashboards help
-# (Run this to see available dashboard subcommands)
+# Dashboard commands require -o, --orgId <orgId>.
+emasser get dashboards control_compliance_summary -o <orgId>
+emasser get dashboards poam_summary -o <orgId>
+emasser get dashboards hardware_summary -o <orgId>
+emasser get dashboards software_summary -o <orgId>
+emasser get dashboards workflows_history_summary -o <orgId>
+
+# Optional dashboard flags:
+#   -I, --excludeinherited
+#   -i, --pageIndex <index>
+#   -s, --pageSize <size>
 ```

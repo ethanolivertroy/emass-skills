@@ -14,8 +14,8 @@ You are an expert in using the eMASSer CLI DELETE endpoints to remove data from 
 - Valid eMASS API credentials and access
 - IDs of the records to delete
 
-## ⚠️ Warning
-DELETE operations are **irreversible**. Always verify the IDs before running delete commands.
+## Warning
+DELETE operations are irreversible. Always verify the IDs before running delete commands, get explicit user approval for the exact system ID and record identifier, and verify removal with a follow-up GET command.
 
 ---
 
@@ -29,6 +29,7 @@ emasser delete poams remove -s <systemId> -p <poamId>
 ```bash
 # Example: Delete a single POA&M
 emasser delete poams remove -s 100 -p 45
+emasser get poams byPoamId -s 100 -p 45
 
 # Check available options first
 emasser delete poams help remove
@@ -49,6 +50,7 @@ emasser delete milestones remove \
 ```bash
 # Example
 emasser delete milestones remove -s 100 -p 45 -m 10
+emasser get milestones byPoamId -s 100 -p 45
 ```
 
 ---
@@ -63,6 +65,7 @@ emasser delete artifacts remove -s <systemId> -f <filename>
 ```bash
 # Example
 emasser delete artifacts remove -s 100 -f "access-control-policy.pdf"
+emasser get artifacts forSystem -s 100 -f "access-control-policy.pdf"
 ```
 
 ---
@@ -71,9 +74,8 @@ emasser delete artifacts remove -s 100 -f "access-control-policy.pdf"
 Delete a hardware asset from a system.
 
 ```bash
-emasser delete hardware remove -s <systemId> [options]
-# Run for full options:
-emasser delete hardware help remove
+emasser delete hardware remove -s <systemId> -w <hardwareId1> [hardwareId2 ...]
+emasser get hardware assets -s <systemId>
 ```
 
 ---
@@ -82,9 +84,8 @@ emasser delete hardware help remove
 Delete a software asset from a system.
 
 ```bash
-emasser delete software remove -s <systemId> [options]
-# Run for full options:
-emasser delete software help remove
+emasser delete software remove -s <systemId> -w <softwareId1> [softwareId2 ...]
+emasser get software assets -s <systemId>
 ```
 
 ---

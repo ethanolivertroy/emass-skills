@@ -1,6 +1,6 @@
 ---
 name: emasser-put
-description: Execute eMASSer CLI PUT commands to update existing data in the eMASS API. Use when updating security controls, modifying POA&Ms, updating milestones, replacing artifacts, or updating hardware/software baseline assets.
+description: Execute eMASSer CLI PUT commands to update existing data in the eMASS API. Use when updating security controls, modifying POA&Ms, updating milestones, updating artifact metadata, or updating hardware/software baseline assets.
 user-invocable: true
 argument-hint: "[controls|poams|milestones|artifacts|hardware|software]"
 ---
@@ -31,7 +31,7 @@ emasser put controls update \
   --responsibleEntities "<description>" \
   --controlDesignation <Common|System-Specific|Hybrid> \
   --estimatedCompletionDate <unix-timestamp> \
-  --comments "<comments>"
+  --implementationNarrative "<implementation narrative>"
 ```
 
 **Implementation Status → Required Fields:**
@@ -49,7 +49,7 @@ emasser put controls update \
   --responsibleEntities "IT Security Team" \
   --controlDesignation System-Specific \
   --estimatedCompletionDate 1735689600 \
-  --comments "Access control policy reviewed and updated." \
+  --implementationNarrative "Access control policy reviewed and updated." \
   --implementationStatus Implemented \
   --slcmCriticality "High - critical system" \
   --slcmFrequency Quarterly \
@@ -58,7 +58,7 @@ emasser put controls update \
   --slcmComments "Automated monitoring in place"
 ```
 
-**Character Limits (2,000):** `naJustification`, `responsibleEntities`, `implementationNarrative`, `slcmCriticality`, `slcmReporting`, `slcmTracking`, `vulnerabilitySummary`, `recommendations`  
+**Character Limits (2,000):** `naJustification`, `responsibleEntities`, `implementationNarrative`, `slcmCriticality`, `slcmReporting`, `slcmTracking`, `vulnerabilitySummary`, `recommendations`
 **Character Limits (4,000):** `slcmComments`
 
 ---
@@ -129,6 +129,8 @@ emasser put milestones update \
 ## Artifacts
 Update artifact metadata for an existing artifact. In eMASSer PUT, `-f/--filename` is the exact artifact filename already in eMASS, not a local file path. Use `post artifacts upload` to upload a new binary file, then use PUT when you need to adjust metadata such as type/category/name/control mappings.
 
+Important: artifact PUT replaces existing metadata with the fields included in the request. Fields omitted from the PUT can become null, and one-to-many mappings such as controls are replaced rather than appended.
+
 ```bash
 emasser put artifacts update \
   -s <systemId> \
@@ -138,7 +140,7 @@ emasser put artifacts update \
   -c <category>
 ```
 
-**Type values:** `Procedure`, `Diagram`, `Policy`, `Labor`, `Document`, `Image`, `Other`, `Scan Result`, `Auditor Report`  
+**Type values:** `Procedure`, `Diagram`, `Policy`, `Labor`, `Document`, `Image`, `Other`, `Scan Result`, `Auditor Report`
 **Category values:** `Implementation Guidance`, `Evidence`
 
 ```bash
@@ -156,10 +158,13 @@ emasser put artifacts update -s 100 \
 Update an existing hardware asset.
 
 ```bash
-emasser put hardware update -s <systemId> [options]
-# Run for full options:
-emasser put hardware help update
+emasser put hardware update \
+  -s <systemId> \
+  -h <hardwareId> \
+  -a "<assetName>"
 ```
+
+Common optional fields include `--componentType`, `--nickname`, `--assetIpAddress`, `--publicFacing`, `--virtualAsset`, `--manufacturer`, `--modelNumber`, `--serialNumber`, `--OsIosFwVersion`, `--memorySizeType`, `--location`, `--approvalStatus`, and `--criticalAsset`. Run `emasser put hardware help update` before changing optional fields.
 
 ---
 
@@ -167,10 +172,15 @@ emasser put hardware help update
 Update an existing software asset.
 
 ```bash
-emasser put software update -s <systemId> [options]
-# Run for full options:
-emasser put software help update
+emasser put software update \
+  -s <systemId> \
+  -S <softwareId> \
+  -V "<softwareVendor>" \
+  -N "<softwareName>" \
+  -v "<version>"
 ```
+
+Common optional fields include `--approvalDate`, `--softwareType`, `--parentSystem`, `--network`, `--hostingEnvironment`, license/cost fields, lifecycle dates, `--approvalStatus`, `--criticalAsset`, `--location`, and `--purpose`. Run `emasser put software help update` before changing optional fields.
 
 ---
 

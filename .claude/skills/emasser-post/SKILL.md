@@ -128,7 +128,7 @@ emasser post artifacts upload \
   -f <file1> [file2 ...]
 ```
 
-**Type values:** `Procedure`, `Diagram`, `Policy`, `Labor`, `Document`, `Image`, `Other`, `Scan Result`, `Auditor Report`  
+**Type values:** `Procedure`, `Diagram`, `Policy`, `Labor`, `Document`, `Image`, `Other`, `Scan Result`, `Auditor Report`
 **Category values:** `Implementation Guidance`, `Evidence`
 
 ```bash
@@ -229,7 +229,6 @@ Add software assets to a system.
 ```bash
 emasser post software add \
   -s <systemId> \
-  -S <softwareId> \
   -V "<softwareVendor>" \
   -N "<softwareName>" \
   -v "<version>"
@@ -238,7 +237,6 @@ emasser post software add \
 ```bash
 # Example
 emasser post software add -s 100 \
-  -S "apache-httpd-2.4.58" \
   -V "Apache Software Foundation" \
   -N "Apache HTTP Server" \
   -v "2.4.58"
@@ -341,7 +339,8 @@ emasser post scan_findings add \
   --version "<version>" \
   --codeCheckName "<checkName>" \
   --scanDate <unix-timestamp> \
-  --cweId "<cweId>"
+  --cweId "<cweId>" \
+  --count <count>
 ```
 
 ```bash

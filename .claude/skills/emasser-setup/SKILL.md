@@ -17,6 +17,7 @@ Agent rule: use the `emasser` CLI first for eMASS operations. Agents should know
 
 - GitHub: https://github.com/mitre/emasser
 - API Docs: https://mitre.github.io/emass_client/docs/redoc/
+- Interactive Swagger/Stoplight mock: https://mitre.github.io/emass_client/docs/renderer/
 
 ## Installation
 
@@ -94,6 +95,24 @@ emasser get test connection
 ```
 
 A successful response confirms the CLI can reach the configured server URL.
+
+## Mock API Validation
+
+The official OpenAPI spec includes a hosted Stoplight Prism mock server:
+
+```bash
+curl -H 'Prefer: code=200' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api
+```
+
+For normal security headers, any values are accepted by the mock:
+
+```bash
+curl -H 'api-key: 123' -H 'user-uid: 123' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api/systems
+```
+
+Use the mock to validate endpoint paths, query parameters, and JSON request bodies. The stock `emasser` CLI cannot directly target this hosted mock URL because it sets `base_path=/` and strips path components from `EMASSER_HOST_URL`; use direct mock API calls for OpenAPI validation and `emasser` against real eMASS instances.
 
 ## Common CLI Patterns
 

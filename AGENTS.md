@@ -23,7 +23,18 @@ For artifact workflows, agents must be able to:
 3. Export/read existing artifacts with `emasser get artifacts export`.
 4. Verify uploads by querying `emasser get artifacts forSystem`.
 
-Use the official MITRE Swagger UI renderer to validate endpoint behavior when command details are uncertain: https://mitre.github.io/emass_client/docs/renderer/. The renderer is documentation/OpenAPI validation, not a substitute for testing against an authorized eMASS environment.
+Use the official MITRE Swagger UI renderer to validate endpoint behavior when command details are uncertain: https://mitre.github.io/emass_client/docs/renderer/. The renderer is backed by a hosted Stoplight Prism mock server at `https://stoplight.io/mocks/mitre/emasser/32836028`; use it to validate request paths, headers, query parameters, and JSON bodies without touching a real eMASS instance. The renderer/mock is documentation/OpenAPI validation, not a substitute for testing against an authorized eMASS environment.
+
+Mock calls require either normal API headers or the Prism mock header:
+```bash
+curl -H 'api-key: 123' -H 'user-uid: 123' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api
+
+curl -H 'Prefer: code=200' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api/systems
+```
+
+Note: the stock `emasser` CLI sets `base_path=/` and strips path components from `EMASSER_HOST_URL`, so it cannot directly target the hosted Stoplight mock URL. Use direct mock API calls for OpenAPI validation, and use `emasser` for real eMASS work.
 
 ## Quick Setup
 
@@ -121,7 +132,7 @@ emasser <verb> <command> help <subcommand>   # Help for a subcommand
 
 ## Available Skills
 
-This repository provides agent skills in `.claude/skills/` that are compatible with Claude Code, GitHub Copilot, and other agents supporting the Agent Skills open standard:
+This repository provides agent skills in `.claude/skills/` that are compatible with Claude Code and other agents supporting the Agent Skills open standard:
 
 | Skill | Description |
 |-------|-------------|
@@ -132,4 +143,4 @@ This repository provides agent skills in `.claude/skills/` that are compatible w
 | `emasser-put` | All PUT endpoint commands |
 | `emasser-delete` | All DELETE endpoint commands |
 
-Skills are located in `.claude/skills/` and work with both Claude Code and GitHub Copilot.
+Skills are located in `.claude/skills/` and work with Claude Code and other agents supporting the Agent Skills open standard.

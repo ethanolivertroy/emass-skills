@@ -241,7 +241,20 @@ emasser delete artifacts remove -s <systemId> -f "filename.pdf"
 Use the MITRE Swagger UI renderer as the reference for endpoint semantics when checking a command or writing a test plan:
 
 - Swagger UI: https://mitre.github.io/emass_client/docs/renderer/
+- Hosted Prism mock server: https://stoplight.io/mocks/mitre/emasser/32836028
 - OpenAPI YAML: https://raw.githubusercontent.com/mitre/emass_client/main/docs/eMASSRestOpenApi.yaml
+
+For mock validation, use either normal headers or the Prism `Prefer` header:
+
+```bash
+curl -H 'api-key: 123' -H 'user-uid: 123' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api/systems/100/artifacts
+
+curl -H 'Prefer: code=200' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api/systems/100/artifacts
+```
+
+The stock `emasser` CLI cannot directly target the hosted mock URL because it strips path components from `EMASSER_HOST_URL`. Use direct mock calls for OpenAPI validation and the CLI for authorized eMASS environments.
 
 Artifact endpoint mapping:
 

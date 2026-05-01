@@ -1,6 +1,6 @@
 # emass-skills
 
-Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compatible with Claude, GitHub Copilot, OpenAI Codex, OpenCode, and every major AI coding agent.
+Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compatible with Claude, OpenAI Codex, OpenCode, and agents supporting the Agent Skills open standard.
 
 ## What is eMASSer?
 
@@ -12,8 +12,7 @@ Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compati
 |----------------|-------|
 | `AGENTS.md` | OpenAI Codex, OpenCode, and all agents supporting the open standard |
 | `CLAUDE.md` | Anthropic Claude (Claude Code) |
-| `.github/copilot-instructions.md` | GitHub Copilot |
-| `.claude/skills/` | Claude Code **and** GitHub Copilot (shared skill format) |
+| `.claude/skills/` | Claude Code and agents supporting the Agent Skills open standard |
 
 ## Agent Operating Rule
 
@@ -42,12 +41,6 @@ cp -r .claude/skills/ /path/to/your/project/.claude/skills/
 cp CLAUDE.md /path/to/your/project/CLAUDE.md
 ```
 
-**GitHub Copilot:**
-```bash
-cp -r .claude/skills/ /path/to/your/project/.claude/skills/
-cp .github/copilot-instructions.md /path/to/your/project/.github/copilot-instructions.md
-```
-
 **All agents (universal):**
 ```bash
 cp AGENTS.md /path/to/your/project/AGENTS.md
@@ -71,5 +64,17 @@ cp -r .claude/skills/ /path/to/your/project/.claude/skills/
 
 - [eMASSer GitHub](https://github.com/mitre/emasser)
 - [eMASS API Documentation](https://mitre.github.io/emass_client/docs/redoc/)
+- [Interactive Swagger/Stoplight Mock](https://mitre.github.io/emass_client/docs/renderer/)
 - [eMASSer Features Guide](https://github.com/mitre/emasser/blob/main/docs/features.md)
 - [Agent Skills Standard](https://agentskills.io/)
+
+## Mock API Validation
+
+The OpenAPI spec exposes a hosted Prism mock server:
+
+```bash
+curl -H 'Prefer: code=200' \
+  https://stoplight.io/mocks/mitre/emasser/32836028/api
+```
+
+Use it to validate API shapes and examples before trying an authorized eMASS environment. The stock `emasser` CLI cannot directly target the hosted mock URL because it strips path components from `EMASSER_HOST_URL`; direct `curl` calls are the practical mock-validation path.
