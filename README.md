@@ -33,7 +33,7 @@ Use the official MITRE Swagger UI renderer to validate endpoint behavior and com
 
 ## Quick Start
 
-### Install Skills for Your Project
+### 1. Install Skills for Your Project
 
 **Claude Code:**
 ```bash
@@ -47,18 +47,42 @@ cp AGENTS.md /path/to/your/project/AGENTS.md
 cp -r .claude/skills/ /path/to/your/project/.claude/skills/
 ```
 
-### eMASSer Setup
+### 2. Install eMASSer
 
-1. Install: `gem install emasser`
-2. Create `.env` with your credentials:
-   ```bash
-   export EMASSER_API_KEY='<api-key>'
-   export EMASSER_HOST_URL='<eMASS FQDN>'
-   export EMASSER_KEY_FILE_PATH='<path/to/key.pem>'
-   export EMASSER_CERT_FILE_PATH='<path/to/client.pem>'
-   export EMASSER_KEY_FILE_PASSWORD='<key-password>'
-   ```
-3. Test: `emasser get test connection`
+```bash
+gem install emasser
+```
+
+eMASSer requires Ruby 3.2 or newer.
+
+### 3. Configure eMASSer
+
+Create a `.env` file in the directory where you run `emasser`:
+
+```bash
+export EMASSER_API_KEY='<api-key>'
+export EMASSER_HOST_URL='<eMASS FQDN>'
+export EMASSER_KEY_FILE_PATH='<path/to/key.pem>'
+export EMASSER_CERT_FILE_PATH='<path/to/client.pem>'
+export EMASSER_KEY_FILE_PASSWORD='<key-password>'
+```
+
+Then test the connection:
+
+```bash
+emasser get test connection
+```
+
+### 4. Use a Skill
+
+Ask your agent to use the relevant skill for the workflow:
+
+- `emasser-setup` for install, configuration, and connection troubleshooting
+- `emasser-get` for querying systems, controls, POA&Ms, artifacts, and dashboards
+- `emasser-post` for creating records and uploading scan results
+- `emasser-artifacts` for inspecting, uploading, exporting, and verifying evidence
+- `emasser-put` for updating records
+- `emasser-delete` for removals that require explicit approval and follow-up verification
 
 ## Resources
 
@@ -78,3 +102,11 @@ curl -H 'Prefer: code=200' \
 ```
 
 Use it to validate API shapes and examples before trying an authorized eMASS environment. The stock `emasser` CLI cannot directly target the hosted mock URL because it strips path components from `EMASSER_HOST_URL`; direct `curl` calls are the practical mock-validation path.
+
+## Repository Validation
+
+Run the local validation script before pushing docs changes:
+
+```bash
+bash tests/validate-repo.sh
+```
