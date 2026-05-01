@@ -141,10 +141,13 @@ emasser get artifacts forSystem -s <systemId>
 #   -Y, --systemOnly
 emasser get artifacts forSystem -s 100 -a "AC-1"
 
-# Export artifact file content
+# Export/read artifact file content
 emasser get artifacts export -s <systemId> -f <filename>
 # Optional: -C, --compress  |  -o, --printToStdout
-emasser get artifacts export -s 100 -f "security-plan.pdf" --printToStdout
+# Prefer downloading binary files; use --printToStdout only for safe, small text artifacts.
+export EMASSER_DOWNLOAD_DIR="$PWD/eMASSerDownloads"
+emasser get artifacts export -s 100 -f "security-plan.pdf"
+emasser get artifacts export -s 100 -f "evidence.txt" --printToStdout
 ```
 
 ---

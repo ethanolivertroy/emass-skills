@@ -12,6 +12,17 @@ eMASSer is a CLI that automates routine eMASS cybersecurity management tasks by 
 - **PUT** — update controls, POA&Ms, milestones, artifacts, and assets
 - **DELETE** — remove POA&Ms, milestones, artifacts, and assets
 
+## Agent Operating Rule
+
+All agents should use the `emasser` CLI as the primary interface for eMASS work. Do not invent direct REST calls or edit eMASS data by hand when a CLI command exists. Before any upload or mutation, inspect local files, validate the target system ID, run the command-specific `emasser ... help` when flags are uncertain, and verify the result with a follow-up GET command.
+
+For artifact workflows, agents must be able to:
+
+1. Read/inspect local evidence files safely.
+2. Upload evidence with `emasser post artifacts upload` or scan results with the scan-specific POST commands.
+3. Export/read existing artifacts with `emasser get artifacts export`.
+4. Verify uploads by querying `emasser get artifacts forSystem`.
+
 ## Quick Setup
 
 1. **Install:** `gem install emasser`
@@ -77,10 +88,20 @@ emasser post poams add -s <systemId> \
   --scheduledCompletionDate <unix-timestamp> \
   --milestone description:"Milestone" scheduledCompletionDate:<unix-timestamp>
 
+# Read/inspect a local artifact before upload
+test -f /path/to/file.pdf && file /path/to/file.pdf && stat /path/to/file.pdf
+
 # Upload an artifact
 emasser post artifacts upload -s <systemId> \
   --no-isTemplate -t Policy -c "Implementation Guidance" \
   -f /path/to/file.pdf
+
+# Verify the upload
+emasser get artifacts forSystem -s <systemId> -f "file.pdf"
+
+# Export/read an existing artifact from eMASS
+export EMASSER_DOWNLOAD_DIR="$PWD/eMASSerDownloads"
+emasser get artifacts export -s <systemId> -f "file.pdf"
 ```
 
 ## CLI Help Pattern
@@ -105,6 +126,7 @@ This repository provides agent skills in `.claude/skills/` that are compatible w
 | `emasser-setup` | Install and configure eMASSer |
 | `emasser-get` | All GET endpoint commands |
 | `emasser-post` | All POST endpoint commands |
+| `emasser-artifacts` | Read, inspect, upload, export, and verify eMASS artifacts |
 | `emasser-put` | All PUT endpoint commands |
 | `emasser-delete` | All DELETE endpoint commands |
 

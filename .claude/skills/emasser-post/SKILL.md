@@ -150,6 +150,24 @@ emasser post artifacts upload -s 100 \
 
 **Constraints:** File size ≤ 30MB, filename ≤ 1,000 chars, last review date cannot be in the future.
 
+**Required agent workflow before upload:**
+1. Read/inspect the local file path: `test -f`, `file`, and `stat`. Do not upload `.env`, private keys, client certificates, API keys, or other secrets.
+2. Use an absolute path when possible.
+3. Choose the right type/category: use `Evidence` for assessment proof, `Implementation Guidance` for policy/procedure guidance, and `Scan Result` for scan artifacts.
+4. Run `emasser post artifacts help upload` if any flag is uncertain.
+5. Verify after upload: `emasser get artifacts forSystem -s <systemId> -f "$(basename /path/to/file)"`.
+
+```bash
+# Safe inspect → upload → verify flow
+test -f /path/to/evidence.pdf && file /path/to/evidence.pdf && stat /path/to/evidence.pdf
+emasser post artifacts upload -s 100 \
+  --no-isTemplate \
+  -t Document \
+  -c Evidence \
+  -f /path/to/evidence.pdf
+emasser get artifacts forSystem -s 100 -f "evidence.pdf"
+```
+
 ---
 
 ## CAC (Control Approval Chain)

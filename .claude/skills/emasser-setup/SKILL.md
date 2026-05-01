@@ -13,6 +13,8 @@ You are an expert in setting up and configuring the eMASSer CLI, a Ruby-based co
 
 eMASSer is a CLI that automates routine eMASS business use-cases by leveraging the eMASS REST API. It supports GET, POST, PUT, and DELETE operations against all eMASS API endpoints.
 
+Agent rule: use the `emasser` CLI first for eMASS operations. Agents should know how to query, read/export artifacts, upload files and scan results, update records, and verify changes with follow-up GET commands. Raw API calls are fallback only when the CLI cannot perform the task.
+
 - GitHub: https://github.com/mitre/emasser
 - API Docs: https://mitre.github.io/emass_client/docs/redoc/
 

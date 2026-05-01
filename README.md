@@ -15,6 +15,10 @@ Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compati
 | `.github/copilot-instructions.md` | GitHub Copilot |
 | `.claude/skills/` | Claude Code **and** GitHub Copilot (shared skill format) |
 
+## Agent Operating Rule
+
+Agents should use the eMASSer CLI for eMASS work. The skills teach agents how to install/configure `emasser`, read/query eMASS data, inspect local files, upload artifacts and scan results, export existing artifacts, and verify changes with follow-up GET commands. Raw API calls are a fallback only when the CLI cannot do the task.
+
 ## Available Skills
 
 | Skill | Location | Description |
@@ -22,6 +26,7 @@ Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compati
 | `emasser-setup` | `.claude/skills/emasser-setup/SKILL.md` | Install, configure, and troubleshoot eMASSer |
 | `emasser-get` | `.claude/skills/emasser-get/SKILL.md` | All GET endpoint commands |
 | `emasser-post` | `.claude/skills/emasser-post/SKILL.md` | All POST endpoint commands |
+| `emasser-artifacts` | `.claude/skills/emasser-artifacts/SKILL.md` | Read, inspect, upload, export, and verify eMASS artifacts |
 | `emasser-put` | `.claude/skills/emasser-put/SKILL.md` | All PUT endpoint commands |
 | `emasser-delete` | `.claude/skills/emasser-delete/SKILL.md` | All DELETE endpoint commands |
 

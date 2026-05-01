@@ -40,6 +40,10 @@ export EMASSER_KEY_FILE_PASSWORD='<key-password>'
 emasser get test connection
 ```
 
+## Agent Operating Rule
+
+Use the `emasser` CLI as the primary interface for eMASS work. Before any upload or mutation, inspect local files, validate the target system ID, check command help when flags are uncertain, run the `emasser` command, and verify with a follow-up GET. Raw REST calls are fallback only when the CLI cannot do the task.
+
 ## Key Commands
 
 ```bash
@@ -63,10 +67,13 @@ emasser post test_results add -s <systemId> --assessmentProcedure "AC-1.1" \
   --testedBy "LastName, FirstName" --testDate <unix-ts> \
   --description "..." --complianceStatus Compliant
 
-# Artifacts
+# Artifacts: read/inspect, upload, verify, export
+test -f /path/to/file.pdf && file /path/to/file.pdf && stat /path/to/file.pdf
 emasser get artifacts forSystem -s <systemId>
 emasser post artifacts upload -s <systemId> --no-isTemplate -t Policy \
   -c "Implementation Guidance" -f /path/to/file.pdf
+emasser get artifacts forSystem -s <systemId> -f "file.pdf"
+emasser get artifacts export -s <systemId> -f "file.pdf"
 
 # Scan Results
 emasser post device_scans add -s <systemId> -f scan.ckl -t disaStigViewerCklCklb
@@ -91,5 +98,6 @@ Detailed skill files are in `.claude/skills/` and work with Claude Code and GitH
 - `emasser-setup` — installation and configuration
 - `emasser-get` — all GET commands
 - `emasser-post` — all POST commands
+- `emasser-artifacts` — read/inspect local evidence, upload artifacts, export/read existing artifacts, and verify uploads
 - `emasser-put` — all PUT commands
 - `emasser-delete` — all DELETE commands
