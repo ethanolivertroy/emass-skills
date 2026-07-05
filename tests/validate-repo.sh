@@ -5,6 +5,11 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
 
 required_files=(
+  ".cursor/rules/emasser-agent.mdc"
+  ".cursorignore"
+  ".env.example"
+  ".github/workflows/validate.yml"
+  ".gitignore"
   "AGENTS.md"
   "CLAUDE.md"
   "README.md"
