@@ -1,0 +1,23 @@
+# Credentials and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Exported eMASS evidence and transient files
+eMASSerDownloads/
+downloads/
+tmp/
+temp/
+
+# Local editor, OS, and dependency caches
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+vendor/bundle/

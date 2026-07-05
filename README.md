@@ -10,9 +10,12 @@ Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compati
 
 | File/Directory | Agent |
 |----------------|-------|
+| `.cursor/rules/` | Cursor project rules |
+| `.cursorignore` | Cursor indexing exclusions for local secrets and evidence |
 | `AGENTS.md` | OpenAI Codex, OpenCode, and all agents supporting the open standard |
 | `CLAUDE.md` | Anthropic Claude (Claude Code) |
 | `.claude/skills/` | Claude Code and agents supporting the Agent Skills open standard |
+| `.env.example` | Safe template for local eMASSer credentials |
 
 ## Agent Operating Rule
 
@@ -35,6 +38,15 @@ Use the official MITRE Swagger UI renderer to validate endpoint behavior and com
 
 ### 1. Install Skills for Your Project
 
+**Cursor:**
+```bash
+cp AGENTS.md /path/to/your/project/AGENTS.md
+cp -r .cursor/ /path/to/your/project/.cursor/
+cp .cursorignore /path/to/your/project/.cursorignore
+cp .env.example /path/to/your/project/.env.example
+cp -r .claude/skills/ /path/to/your/project/.claude/skills/
+```
+
 **Claude Code:**
 ```bash
 cp -r .claude/skills/ /path/to/your/project/.claude/skills/
@@ -45,6 +57,7 @@ cp CLAUDE.md /path/to/your/project/CLAUDE.md
 ```bash
 cp AGENTS.md /path/to/your/project/AGENTS.md
 cp -r .claude/skills/ /path/to/your/project/.claude/skills/
+cp .env.example /path/to/your/project/.env.example
 ```
 
 ### 2. Install eMASSer
@@ -110,3 +123,5 @@ Run the local validation script before pushing docs changes:
 ```bash
 bash tests/validate-repo.sh
 ```
+
+The same validation runs in GitHub Actions for pull requests and pushes to `main`.

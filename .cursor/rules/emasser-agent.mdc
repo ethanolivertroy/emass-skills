@@ -1,0 +1,13 @@
+---
+description: eMASSer CLI agent operating rules
+alwaysApply: true
+---
+
+# eMASSer CLI Agent Rules
+
+- Use the `emasser` CLI as the primary interface for eMASS work whenever a command exists.
+- Before uploads or mutations, inspect local files, validate the target system ID, and run the command-specific `emasser ... help` when flags are uncertain.
+- Verify every successful upload or mutation with the appropriate follow-up GET command.
+- Use raw REST or mock API calls only for OpenAPI validation or when the CLI cannot perform the task.
+- Keep eMASS credentials, client certificates, private keys, and downloaded evidence out of git and Cursor context. Use `.env.example` as a template only.
+- Refer to the detailed workflow skills in `.claude/skills/` before setup, GET, POST, PUT, DELETE, or artifact operations.
