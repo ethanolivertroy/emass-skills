@@ -1,5 +1,7 @@
 # emass-skills
 
+> **Project moved.** emass-skills has been integrated into [Open Control Tools](https://github.com/ethanolivertroy/open-ctrl-tools).
+
 Agent skills for the [eMASSer CLI](https://github.com/mitre/emasser) — compatible with Claude, OpenAI Codex, OpenCode, and agents supporting the Agent Skills open standard.
 
 ## What is eMASSer?
